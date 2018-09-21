@@ -63,10 +63,10 @@
                               "apiVersion": "2017-05-01-preview",
                               "location": "[parameters('location')]",
                               "dependsOn": [
-                                 "deployStorageAccount"
+                                 "[concat('deployStorageAccount-',parameters('location')]"
                               ],
                               "properties": {
-                                 "storageAccountId": "[reference('deployStorageAccount').outputs.storageAccountId.value]",
+                                 "storageAccountId": "[reference(concat('deployStorageAccount-',parameters('location')).outputs.storageAccountId.value]",
                                  "logs": [
                                     {
                                        "category": "NetworkSecurityGroupEvent",
@@ -89,7 +89,7 @@
                            },
                            {
                               "apiVersion": "2017-05-10",
-                              "name": "deployStorageAccount",
+                              "name": "[concat('deployStorageAccount-',parameters('location')]",
                               "type": "Microsoft.Resources/deployments",
                               "resourceGroup": "[parameters('rgName')]",
                               "properties": {
